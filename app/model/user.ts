@@ -7,6 +7,7 @@ export default function(app: Application) {
     id: { type: STRING(255), primaryKey: true, autoIncrement: true },
     phone: STRING(255),
     username: STRING(255),
+    password: STRING(255),
     avatar: STRING(255),
     sex: STRING(255),
     birthday: DATE,

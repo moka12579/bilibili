@@ -23,6 +23,8 @@ import '@eggjs/tegg-eventbus-plugin';
 import '@eggjs/tegg-aop-plugin';
 import 'egg-tracer';
 import 'egg-sequelize';
+import 'egg-validate';
+import 'egg-bcrypt';
 import { EggPluginItem } from 'egg';
 declare module 'egg' {
   interface EggPlugin {
@@ -46,5 +48,7 @@ declare module 'egg' {
     aopModule?: EggPluginItem;
     tracer?: EggPluginItem;
     sequelize?: EggPluginItem;
+    validate?: EggPluginItem;
+    bcrypt?: EggPluginItem;
   }
 }

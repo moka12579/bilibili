@@ -27,16 +27,22 @@
     "@eggjs/tegg-eventbus-plugin": "^3.5.2",
     "@eggjs/tegg-plugin": "^3.5.2",
     "@eggjs/tegg-schedule-plugin": "^3.5.2",
+    "bcrypt": "^5.1.1",
     "egg": "^3.15.0",
+    "egg-bcrypt": "^1.1.0",
     "egg-scripts": "^2.17.0",
     "egg-sequelize": "^6.0.0",
     "egg-tracer": "^2.0.0",
-    "mysql2": "^2.3.3"
+    "egg-validate": "^2.0.2",
+    "mysql2": "^2.3.3",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@eggjs/tsconfig": "1",
+    "@types/bcrypt": "^5.0.0",
     "@types/mocha": "10",
     "@types/node": "18",
+    "@types/uuid": "^9.0.4",
     "egg-bin": "6",
     "egg-mock": "5",
     "egg-ts-helper": "^2.1.0",
