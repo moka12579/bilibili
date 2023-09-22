@@ -12,21 +12,30 @@ class UserService {
   @Inject()
   model: IModel;
 
-  async login() {
-    return this.model.User.findAll();
+  async login(phone: string, password:string, ctx: EggContext) {
+    const user = await ctx.model.User.findOne({
+      where: {
+        phone,
+      },
+    });
+    if (!user) {
+      return false;
+    }
+    const b = ctx.compare(password, user.getDataValue('password'));
+    if (b) {
+      const token = ctx.app.jwt.sign(user.getDataValue('id'), ctx.app.config.jwt.secret);
+      ctx.cookies.set('token', token);
+      await ctx.app.redis.set(user.getDataValue('id'), token, 'EX', 604800);
+      return token;
+    }
+    return false;
   }
 
-  async register(phone: string, password: string, ctx: EggContext) {
+  async register(phone: string, password: string, ctx: EggContext, sign: string) {
     const bcryptPassword = await ctx.genHash(password);
     const id = uuidv1();
     const username = '用户' + Math.floor(Math.random() * 100000);
-    const a = {
-      ip: ctx.ip,
-      ua: ctx.headers['user-agent'],
-      host: ctx.host,
-      time: new Date().toLocaleString(),
-    };
-    return await ctx.model.User.create({
+    const user = await ctx.model.User.create({
       id,
       phone,
       username,
@@ -37,8 +46,9 @@ class UserService {
       personal_signature: '这个人很懒，什么都没有留下',
       create_time: new Date().toLocaleString(),
       status: '0',
-      sign: await ctx.genHash(JSON.stringify(a)),
+      sign,
     });
+    return !!user;
   }
 }
 

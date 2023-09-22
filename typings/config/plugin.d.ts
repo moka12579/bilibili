@@ -25,6 +25,8 @@ import 'egg-tracer';
 import 'egg-sequelize';
 import 'egg-validate';
 import 'egg-bcrypt';
+import 'egg-jwt';
+import 'egg-redis';
 import { EggPluginItem } from 'egg';
 declare module 'egg' {
   interface EggPlugin {
@@ -50,5 +52,7 @@ declare module 'egg' {
     sequelize?: EggPluginItem;
     validate?: EggPluginItem;
     bcrypt?: EggPluginItem;
+    jwt?: EggPluginItem;
+    redis?: EggPluginItem;
   }
 }

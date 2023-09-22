@@ -12,10 +12,15 @@ export class UserController {
     path: 'login',
   })
   async login(@HTTPBody() loginUser: any, @Context() ctx: EggContext) {
-    if (loginUser.phone === undefined || loginUser.password === undefined) {
+    const { phone, password } = loginUser;
+    if (phone === undefined || password === undefined) {
       return fail('参数验证不通过');
     }
-    return ok(null, await ctx.service.userService.login());
+    const b = await ctx.service.userService.login(phone, password, ctx);
+    if (typeof b === 'string') {
+      return ok(null, b);
+    }
+    return fail('登录失败');
   }
 
   @HTTPMethod({
@@ -27,9 +32,18 @@ export class UserController {
     if (phone === undefined || password === undefined) {
       return fail('参数验证不通过');
     }
-    await ctx.service.userService.register(phone, password, ctx);
-    // console.log(this.userService.register(phone, password));
-    return ok('ok', null);
+    const a = {
+      ip: ctx.ip,
+      ua: ctx.headers['user-agent'],
+      host: ctx.host,
+      time: new Date().toLocaleString(),
+    };
+    const sign = await ctx.genHash(JSON.stringify(a));
+    const b = await ctx.service.userService.register(phone, password, ctx, sign);
+    if (b) {
+      return ok('注册成功', null);
+    }
+    return fail('注册失败');
   }
 
 }

@@ -30,6 +30,20 @@ export default (appInfo: EggAppInfo) => {
     database: 'bilibili',
   };
 
+  config.redis = {
+    client: {
+      port: 6379,
+      host: '127.0.0.1',
+      db: 0,
+      password: '',
+    },
+  };
+
+  config.jwt = {
+    secret: 'asdasfjdhfkjasdnvlkjnckv',
+  };
+
+
   // the return config will combines to EggAppConfig
   return {
     ...config,

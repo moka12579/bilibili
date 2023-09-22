@@ -41,6 +41,17 @@ const plugin: EggPlugin = {
     enable: true,
     package: 'egg-bcrypt',
   },
+  session: {
+    enable: true,
+  },
+  jwt: {
+    enable: true,
+    package: 'egg-jwt',
+  },
+  redis: {
+    enable: true,
+    package: 'egg-redis',
+  },
 };
 
 export default plugin;
