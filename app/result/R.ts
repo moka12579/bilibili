@@ -6,9 +6,16 @@ export const ok = (msg, data) => {
   };
 };
 
-export const fail = (msg) => {
+export const fail = msg => {
   return {
     code: 500,
+    msg,
+  };
+};
+
+export const validationFailed = msg => {
+  return {
+    code: 401,
     msg,
   };
 };

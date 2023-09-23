@@ -39,6 +39,9 @@ export default (appInfo: EggAppInfo) => {
     },
   };
 
+  config.middleware = [ 'auth' ];
+
+
   config.jwt = {
     secret: 'asdasfjdhfkjasdnvlkjnckv',
   };
