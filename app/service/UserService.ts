@@ -1,5 +1,4 @@
-import { AccessLevel, EggContext, Inject, SingletonProto } from '@eggjs/tegg';
-import { IModel } from 'egg';
+import { AccessLevel, EggContext, SingletonProto } from '@eggjs/tegg';
 import { v1 as uuidv1 } from 'uuid';
 
 
@@ -8,9 +7,6 @@ import { v1 as uuidv1 } from 'uuid';
   accessLevel: AccessLevel.PUBLIC,
 })
 class UserService {
-
-  @Inject()
-  model: IModel;
 
   async login(phone: string, password:string, ctx: EggContext) {
     const user = await ctx.model.User.findOne({

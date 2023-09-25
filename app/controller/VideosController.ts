@@ -1,4 +1,4 @@
-import { Context, EggContext, HTTPController, HTTPMethod, HTTPMethodEnum } from '@eggjs/tegg';
+import { Context, EggContext, HTTPController, HTTPMethod, HTTPMethodEnum, HTTPQuery } from '@eggjs/tegg';
 import { ok } from '../result/R';
 
 @HTTPController({
@@ -9,8 +9,10 @@ export class VideosController {
     method: HTTPMethodEnum.GET,
     path: 'getVideos',
   })
-  async getVideos(@Context() ctx: EggContext) {
+  async getVideos(@HTTPQuery() pageSize: string, @HTTPQuery() pageNum: string, @Context() ctx: EggContext) {
+    console.log(pageSize);
+    console.log(pageNum);
     console.log(ctx);
-    return ok('ok', null);
+    return ok('ok', await ctx.service.videosService.getAll(pageSize, pageNum, ctx));
   }
 }

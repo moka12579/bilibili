@@ -2,8 +2,8 @@ import { validationFailed } from '../result/R';
 
 module.exports = app => {
   return async function auth(ctx, next) {
-    const routerAuth = [ '/user/login', '/user/register' ];
-    const url = ctx.url;
+    const routerAuth = [ '/user/login', '/user/register', '/videos/getVideos', '/user/h' ];
+    const url = ctx.url.split('?')[0];
     const flag = routerAuth.includes(url);
     if (flag) {
       await next();

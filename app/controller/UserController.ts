@@ -41,9 +41,23 @@ export class UserController {
     const sign = await ctx.genHash(JSON.stringify(a));
     const b = await ctx.service.userService.register(phone, password, ctx, sign);
     if (b) {
+      ctx.cookies.set('sign', b);
       return ok('注册成功', null);
     }
     return fail('注册失败');
   }
 
+  @HTTPMethod({
+    method: HTTPMethodEnum.GET,
+    path: 'h',
+  })
+  async h(@Context() ctx: EggContext) {
+    return await ctx.model.User.findAll({
+      subQuery: false,
+      include: {
+        model: ctx.model.Video,
+        as: 'videos',
+      },
+    });
+  }
 }

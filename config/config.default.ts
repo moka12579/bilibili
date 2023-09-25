@@ -28,6 +28,22 @@ export default (appInfo: EggAppInfo) => {
     username: 'root',
     password: '1235795chl',
     database: 'bilibili',
+    define: {
+      freezeTableName: true,
+      timestamps: false,
+      underscored: true,
+    },
+    timezone: '+8:00',
+    dialectOptions: {
+      charset: 'UTF8',
+      typeCast(field, next) {
+        // for reading from database
+        if (field.type === 'DATETIME') {
+          return field.string();
+        }
+        return next();
+      },
+    },
   };
 
   config.redis = {
